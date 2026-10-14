@@ -9,6 +9,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
+      "bundleIdentifier": "com.abrilxcx.calculatorapp",
       "supportsTablet": true
     },
     "android": {
