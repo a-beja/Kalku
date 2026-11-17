@@ -11,6 +11,7 @@
 - **TypeScript:** interfaces y tipos limitan las props y opciones permitidas.
 - **Estilos:** `StyleSheet.create` agrupa estilos; arreglos y callbacks permiten combinarlos y cambiarlos dinámicamente.
 - **Expo:** `expo-font`, `expo-haptics` y `expo-sensors` cargan fuentes, dan respuesta háptica y leen el acelerómetro.
+- **Plataforma:** `Platform.OS` evita usar el acelerómetro en web; no hay lógica separada para iOS y Android.
 - **Bun:** `bun.lock` registra dependencias y Bun ejecuta los scripts del proyecto.
 
 ## 1. Archivos principales
@@ -118,10 +119,11 @@
   ```tsx
   const [loaded] = useFonts({ SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf') });
   ```
-- **Sensor:** `Accelerometer.addListener` escucha movimiento; `Math.sqrt` calcula su magnitud y `sub.remove()` limpia la suscripción. Se omite en web.
+- **Sensor y plataforma:** `Accelerometer.addListener` escucha movimiento; `Math.sqrt` calcula su magnitud y `sub.remove()` limpia la suscripción. `Platform.OS` omite el sensor en web; no hay ramas específicas para iOS o Android.
   ```tsx
   if (Platform.OS === 'web') return;
   ```
+- **Paquetes:** `expo-haptics` está declarado en [package.json](./package.json) y se importa para la respuesta háptica; `bun.lock` registra las dependencias. El repositorio no muestra el comando con que se instaló.
 - **Configuración:** [app.json](./app.json) define Expo Router, splash screen, orientación vertical, web estática y rutas tipadas. [package.json](./package.json) declara Expo `~54.0.34`; [eas.json](./eas.json) define perfiles development, preview y production.
 - **Bun:** [package.json](./package.json) declara los scripts; por ejemplo, `bun run start` y `bun run lint`. `bun.lock` guarda el lockfile.
 - **Código no usado:** no se identificó estado relevante sin uso; `onLongPress` no está implementado.
